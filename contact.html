@@ -118,6 +118,7 @@
   <script src="js/sb-admin-2.min.js"></script>
   <script src="js/vue.js"></script>
   <script src="js/vue-router.js"></script>
+  <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
   <script> 
     $(function(){
       $("#sidebar").load("sidebar.html");
@@ -129,6 +130,7 @@
       mode: 'history',
       routes: []
     });
+    
     var app = new Vue({
     router,
     el: '#contact',
@@ -164,25 +166,28 @@
         var data = { 'firstName' : this.firstName, 'surname': this.surname, 'address' : this.address,
                      'description': this.description, 'contactItems': contacts};
         if(this.id) {
-          data.id = this.id;
+          var key = 'contact_' + this.id;
+          localStorage.setItem(key, JSON.stringify(data))
         }
-        // jQuery.post('/api/saveContact', data).done (function (res) {
-        //   app.id = res.id
-        // })
+        else{
+          var id  = uuidv4();
+          var key = 'contact_' + id;
+          localStorage.setItem(key, JSON.stringify(data))
+          this.id = id;
+        }
       },
-      getContact : function(id){
-        // jQuery.get('/api/getContact', {'id': id}).done (function (res) {
-        //   app.id = res.id;
-        //   app.firstName = res.firstName;
-        //   app.surname = res.surname;
-        //   app.address = res.address;
-        //   app.description = res.description;
-        //   app.contactItems = res.contactItems === '' ? [] : res.contactItems;
-        // })
+      getContact  : async function(id){
+        var key = 'contact_' + id;
+        var res = JSON.parse(localStorage.getItem(key));
+        this.id = id;
+        this.firstName = res.firstName;
+        this.surname = res.surname;
+        this.address = res.address;
+        this.description = res.description;
+        this.contactItems = res.contactItems === '' ? [] : res.contactItems;
       }
     }
-    })
+    });
   </script>
 </body>
-
 </html>

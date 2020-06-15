@@ -5,6 +5,7 @@
         "fortawesome",
         "tabindex",
         "topbar",
-        "uuidv"
+        "uuidv",
+        "zangodb"
     ]
 }
