@@ -333,7 +333,7 @@
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
   <script src="js/common.min.js"></script>
-<script> 
+  <script> 
     function formatDate(date) {
       var monthNames = [
         "01", "02", "03",
@@ -355,10 +355,14 @@
       },
       mounted: function() {
         var now = formatDate(new Date());
-        var data = {'date':  now }
-        // jQuery.get('/api/upcomingBookings', data).done (function (res) {
-        //   futureBookings.count = res.count;
-        // })
+        for ( var i = 0, len = localStorage.length; i < len; ++i ) {
+          if (localStorage.key( i ).indexOf('booking_') === 0) {
+            var item = JSON.parse(localStorage.getItem(localStorage.key( i )));
+            if (item.date > now){
+              this.count++;
+            }
+          }
+        }
       },
     })
   </script> 
