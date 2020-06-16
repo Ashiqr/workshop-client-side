@@ -116,24 +116,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -150,39 +132,8 @@
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
-  <script> 
-    $(function(){
-      $("#sidebar").load("sidebar.html");
-      $("#topbar").load("topbar.html");
-      $("#footer").load("footer.html");
-
-      var app = new Vue({
-        el: '#viewContacts',
-        data: {
-            search: '',
-            results: []
-        },
-        methods: {
-            searchContacts: function () {
-              if (this.search){
-                var data = {'query': this.search.toString().trim()}
-              }
-              else{
-                var data = null;
-              }
-              for ( var i = 0, len = localStorage.length; i < len; ++i ) {
-                  if (localStorage.key( i ).indexOf('contact_') === 0) {
-                    var item = JSON.parse(localStorage.getItem(localStorage.key( i )));
-                    item.id = localStorage.key( i ).replace('contact_', '');
-                    this.results.push(item);
-                  }
-                  localStorage.key( i );
-              }
-            }
-        }
-      });
-    });
-  </script>
+  <script src="js/frontScript/viewContact.js"></script>
+  <script src="js/common.js"></script>
 </body>
 
 </html>

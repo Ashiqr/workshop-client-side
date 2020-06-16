@@ -88,24 +88,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -119,75 +101,7 @@
   <script src="js/vue.js"></script>
   <script src="js/vue-router.js"></script>
   <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
-  <script> 
-    $(function(){
-      $("#sidebar").load("sidebar.html");
-      $("#topbar").load("topbar.html");
-      $("#footer").load("footer.html");
-    });
-
-    var router = new VueRouter({
-      mode: 'history',
-      routes: []
-    });
-    
-    var app = new Vue({
-    router,
-    el: '#contact',
-    data: {
-          id : null,
-          firstName: '',
-          surname: '',
-          address : '',
-          description: '',
-          newItem: null,
-          contactItems: []
-        },
-    mounted: function() {
-        var id = this.$route.query.id;
-        if(id){
-          this.getContact(id);
-        }
-    },
-    methods: {
-      addContactItem : function () {
-        if (this.newItem && this.contactItems.indexOf(this.newItem) < 0){
-          this.contactItems.push(this.newItem);
-          this.newItem = null;
-        }
-      },
-      removeContactItem : function(item){
-        if (item && this.contactItems.indexOf(item) > -1){
-          this.contactItems.splice(this.contactItems.indexOf(item), 1);
-        }
-      },
-      save : function() {
-        var contacts = this.contactItems.length === 0 ? null : this.contactItems;
-        var data = { 'firstName' : this.firstName, 'surname': this.surname, 'address' : this.address,
-                     'description': this.description, 'contactItems': contacts};
-        if(this.id) {
-          var key = 'contact_' + this.id;
-          localStorage.setItem(key, JSON.stringify(data))
-        }
-        else{
-          var id  = uuidv4();
-          var key = 'contact_' + id;
-          localStorage.setItem(key, JSON.stringify(data))
-          this.id = id;
-        }
-      },
-      getContact  : async function(id){
-        var key = 'contact_' + id;
-        var res = JSON.parse(localStorage.getItem(key));
-        this.id = id;
-        this.firstName = res.firstName;
-        this.surname = res.surname;
-        this.address = res.address;
-        this.description = res.description;
-        this.contactItems = res.contactItems === '' ? [] : res.contactItems;
-      }
-    }
-    });
-  </script>
+  <script src="js/frontScript/contact.js"></script>
+  <script src="js/common.js"></script>
 </body>
 </html>
