@@ -40,23 +40,27 @@ var app = new Vue({
       var data = { 'name' : this.name, 'car': this.car, 'regNum' : this.regNum, 'date': this.date,
                    'description': this.description, 'liftRequired' : this.liftRequired, 'checkItems': check};
       if(this.id) {
-        data.id = this.id;
+        var key = 'booking_' + this.id;
+        localStorage.setItem(key, JSON.stringify(data))
       }
-      jQuery.post('/api/saveBooking', data).done (function (res) {
-        app.id = res.id;
-      })
+      else{
+        var id  = uuidv4();
+        var key = 'booking_' + id;
+        localStorage.setItem(key, JSON.stringify(data))
+        this.id = id;
+      }
     },
     getBooking : function(id){
-      jQuery.get('/api/getBooking', {'id': id}).done (function (res) {
-        app.id = res.id;
-        app.name = res.name;
-        app.car = res.car;
-        app.regNum = res.regNum;
-        app.description = res.description;
-        app.date = res.date;
-        app.liftRequired = (res.liftRequired === 'true' || res.liftRequired === '1');
-        app.checkItems = res.checkItems === '' ? [] : res.checkItems;
-      })
+      var key = 'booking_' + id;
+      var res = JSON.parse(localStorage.getItem(key));
+      this.id = id;
+      this.name = res.name;
+      this.car = res.car;
+      this.regNum = res.regNum;
+      this.description = res.description;
+      this.date = res.date;
+      this.liftRequired = (res.liftRequired === 'true' || res.liftRequired === '1');
+      this.checkItems = res.checkItems === '' ? [] : res.checkItems;
     }
   }
 })

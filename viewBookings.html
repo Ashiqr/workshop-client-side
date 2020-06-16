@@ -133,30 +133,6 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/common.js"></script>
-  <script> 
-   
-
-      var app = new Vue({
-        el: '#viewBookings',
-        data: {
-            search: '',
-            results: []
-        },
-        methods: {
-            searchBookings: function () {
-              if (this.search){
-                var data = {'query': this.search.toString().trim()}
-              }
-              else{
-                var data = null;
-              }
-              // jQuery.get('/api/searchBookings', data).done (function (res) {
-              //     app.results = res;
-              // })
-            }
-        }
-      });
-  </script>
+  <script src="js/frontScript/viewBooking.js"></script>
 </body>
-
 </html>

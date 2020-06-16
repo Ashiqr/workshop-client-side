@@ -53,24 +53,28 @@ var app = new Vue({
       var data = { 'name' : this.name, 'car': this.car, 'regNum' : this.regNum, 'date': this.date,
                    'description': this.description, 'note': this.note, 'spItems': items};
       if(this.id) {
-        data.id = this.id;
+        var key = 'job_' + this.id;
+        localStorage.setItem(key, JSON.stringify(data))
       }
-      jQuery.post('/api/saveJob', data).done (function (res) {
-        app.id = res.id;
-      })
+      else{
+        var id  = uuidv4();
+        var key = 'job_' + id;
+        localStorage.setItem(key, JSON.stringify(data))
+        this.id = id;
+      }
     },
     getJob : function(id){
-      jQuery.get('/api/getJob', {'id': id}).done (function (res) {
-        app.id = res.id;
-        app.name = res.name;
-        app.car = res.car;
-        app.regNum = res.regNum;
-        app.description = res.description;
-        app.date = res.date;
-        app.note = res.note;
-        app.spItems = res.spItems === '' ? [] : res.spItems;
-        app.spItems.map( function (x) { x.totalCost = parseFloat(x.totalCost)});
-      })
+      var key = 'job_' + id;
+      var res = JSON.parse(localStorage.getItem(key));
+      this.id = id;
+      this.name = res.name;
+      this.car = res.car;
+      this.regNum = res.regNum;
+      this.description = res.description;
+      this.date = res.date;
+      this.note = res.note;
+      this.spItems = res.spItems === '' ? [] : res.spItems;
+      this.spItems.map( function (x) { x.totalCost = parseFloat(x.totalCost)});
     },
     invoice : function() {
       window.location = '/invoice.html?id=' + this.id;
