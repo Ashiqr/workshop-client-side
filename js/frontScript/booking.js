@@ -3,8 +3,11 @@ var router = new VueRouter({
     routes: []
 });
 
+var validation = new Validation()
+
 var app = new Vue({
   router,
+  validation,
   el: '#newBooking',
   data: {
         id : null,
@@ -15,7 +18,8 @@ var app = new Vue({
         liftRequired: 0,
         date: null,
         newItem: null,
-        checkItems: []
+        checkItems: [],
+        messages: []
       },
   mounted: function() {
       var id = this.$route.query.id;
@@ -36,9 +40,15 @@ var app = new Vue({
       }
     },
     save : function() {
+      this.messages = [];
       var check = this.checkItems.length === 0 ? null : this.checkItems;
       var data = { 'name' : this.name, 'car': this.car, 'regNum' : this.regNum, 'date': this.date,
                    'description': this.description, 'liftRequired' : this.liftRequired, 'checkItems': check};
+      const valid = validation.Booking(data);
+      if (valid.length > 0) {
+          valid.map(x => {this.messages.push({ colour : 'Red', message: x.message});});
+          return;
+      }
       if(this.id) {
         var key = 'booking_' + this.id;
         localStorage.setItem(key, JSON.stringify(data))

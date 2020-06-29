@@ -31,25 +31,30 @@
             <h1 class="h3 mb-4 text-gray-800">Contact</h1>
             <form class="form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="form">
-                <p class="mb-3">First Name</p>
-                <input type="text" class="form-control bg-light border-1 small mb-3" placeholder="First Name" v-model="firstName"  />
-                <p class="mb-3" >Surname</p>
-                <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Surname" v-model="surname"  />
-                <p class="mb-3" >Description</p>
-                <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="description" ></textarea>
-                <p class="mb-3" >Contacts</p>
-                <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Add Item" v-model="newItem"  />
-                <input type="button" class="btn btn-primary btn-sm mb-3" value="Add" v-on:click="addContactItem" />
-                <ul>
-                  <li v-for="item in contactItems" :key="item" v-on:click="removeContactItem(item)">
-                    {{ item }}
-                  </li>
-                </ul>
-                <p class="mb-3" >Address</p>
-                <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="address" ></textarea>
-                <div>
-                  <input type="button" class="btn btn-primary btn-sm" value="Save" v-on:click="save" />
-                </div>
+              <ul>
+                <li v-for="(item, index) in messages" :key="index">
+                  <p v-bind:style="{color: item.colour}">{{item.message}}</p>
+                </li>
+              </ul>
+              <p class="mb-3">First Name</p>
+              <input type="text" class="form-control bg-light border-1 small mb-3" placeholder="First Name" v-model="firstName"  />
+              <p class="mb-3" >Surname</p>
+              <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Surname" v-model="surname"  />
+              <p class="mb-3" >Description</p>
+              <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="description" ></textarea>
+              <p class="mb-3" >Contacts</p>
+              <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Add Item" v-model="newItem"  />
+              <input type="button" class="btn btn-primary btn-sm mb-3" value="Add" v-on:click="addContactItem" />
+              <ul>
+                <li v-for="item in contactItems" :key="item" v-on:click="removeContactItem(item)">
+                  {{ item }}
+                </li>
+              </ul>
+              <p class="mb-3" >Address</p>
+              <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="address" ></textarea>
+              <div>
+                <input type="button" class="btn btn-primary btn-sm" value="Save" v-on:click="save" />
+              </div>
             </div>
             </form>
         </div>
@@ -78,6 +83,7 @@
   <script src="js/vue-router.js"></script>
   <script src="js/uuidv4.min.js"></script>
   <script src="js/common.js"></script>
+  <script src="js/validation.js"></script>
   <script src="js/frontScript/contact.js"></script>
 </body>
 </html>

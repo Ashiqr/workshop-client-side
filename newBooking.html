@@ -31,26 +31,31 @@
             <h1 class="h3 mb-4 text-gray-800">Booking</h1>
             <form class="form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="form">
-                <p class="mb-3">Name</p>
-                <input type="text" class="form-control bg-light border-1 small mb-3" placeholder="Customer Name" v-model="name"  />
-                <p class="mb-3" >Car</p>
-                <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Car" v-model="car"  />
-                <p class="mb-3" >Registration Number</p>
-                <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Registration Number" v-model="regNum"  />
-                <p class="mb-3" >Job Description</p>
-                <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="description" ></textarea>
-                <p class="mb-3" >Checklist</p>
-                <input type="text" class="form-control bg-light border-1 " placeholder="Add Item" v-model="newItem"  />
-                <input type="button" class="btn btn-primary btn-sm" value="Add" v-on:click="addCheckItem" />
-                <ul id="example-1">
-                  <li v-for="item in checkItems" :key="item" v-on:click="removeCheckItem(item)">
-                    {{ item }}
-                  </li>
-                </ul>
-                <p class="mb-3">Date</p>
-                <input type="date" v-model="date" class="form-control bg-light border-1 mb-3" placeholder="Date Vehicle Arrives" />
-                <p class="mb-3" >Lift Required <input type="checkbox" v-model="liftRequired" /></p>
-                <input type="button" class="btn btn-primary btn-sm" value="Save" v-on:click="save" />
+              <ul>
+                <li v-for="(item, index) in messages" :key="index">
+                  <p v-bind:style="{color: item.colour}">{{item.message}}</p>
+                </li>
+              </ul>
+              <p class="mb-3">Name</p>
+              <input type="text" class="form-control bg-light border-1 small mb-3" placeholder="Customer Name" v-model="name"  />
+              <p class="mb-3" >Car</p>
+              <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Car" v-model="car"  />
+              <p class="mb-3" >Registration Number</p>
+              <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Registration Number" v-model="regNum"  />
+              <p class="mb-3" >Job Description</p>
+              <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="description" ></textarea>
+              <p class="mb-3" >Checklist</p>
+              <input type="text" class="form-control bg-light border-1 " placeholder="Add Item" v-model="newItem"  />
+              <input type="button" class="btn btn-primary btn-sm" value="Add" v-on:click="addCheckItem" />
+              <ul id="example-1">
+                <li v-for="item in checkItems" :key="item" v-on:click="removeCheckItem(item)">
+                  {{ item }}
+                </li>
+              </ul>
+              <p class="mb-3">Date</p>
+              <input type="date" v-model="date" class="form-control bg-light border-1 mb-3" placeholder="Date Vehicle Arrives" />
+              <p class="mb-3" >Lift Required <input type="checkbox" v-model="liftRequired" /></p>
+              <input type="button" class="btn btn-primary btn-sm" value="Save" v-on:click="save" />
             </div>
             </form>
         </div>
@@ -79,6 +84,7 @@
   <script src="js/vue-router.js"></script>
   <script src="js/uuidv4.min.js"></script>
   <script src="js/common.js"></script>
+  <script src="js/validation.js"></script>
   <script src="js/frontScript/booking.js"></script>
 </body>
 </html>

@@ -2,8 +2,12 @@ var router = new VueRouter({
     mode: 'history',
     routes: []
   });
+
+var validation = new Validation()
+
 var app = new Vue({
   router,
+  validation,
   el: '#Job',
   data: {
         id : null,
@@ -14,7 +18,8 @@ var app = new Vue({
         note: '',
         date: null,
         newItem: {'code' : null, 'description': null, 'unitCost' : 0, 'quantity' : 1, 'totalCost' : null},
-        spItems: []
+        spItems: [],
+        messages: []
   },
   mounted: function() {
       var id = this.$route.query.id;
@@ -49,9 +54,15 @@ var app = new Vue({
       }
     },
     save : function() {
+      this.messages = [];
       var items = this.spItems.length === 0 ? null : this.spItems;
       var data = { 'name' : this.name, 'car': this.car, 'regNum' : this.regNum, 'date': this.date,
                    'description': this.description, 'note': this.note, 'spItems': items};
+      const valid = validation.Job(data);
+      if (valid.length > 0) {
+          valid.map(x => {this.messages.push({ colour : 'Red', message: x.message});});
+          return;
+      }
       if(this.id) {
         var key = 'job_' + this.id;
         localStorage.setItem(key, JSON.stringify(data))

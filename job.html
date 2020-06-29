@@ -31,68 +31,73 @@
             <h1 class="h3 mb-4 text-gray-800">Job</h1>
             <form class="form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="form">
-                <p class="mb-3">Name</p>
-                <input type="text" class="form-control bg-light border-1 small mb-3" placeholder="Customer Name" v-model="name"  />
-                <p class="mb-3" >Car</p>
-                <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Car" v-model="car"  />
-                <p class="mb-3" >Registration Number</p>
-                <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Registration Number" v-model="regNum"  />
-                <p class="mb-3" >Job Description</p>
-                <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="description" ></textarea>
-                <p class="mb-3" >Job Notes</p>
-                <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="note" ></textarea>
-                <p class="mb-3" >Service and Product Items</p>
-                <div class="card shadow mb-4">
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                          <tr>
-                              <th>#</th>
-                              <th>Code</th>
-                              <th>Description</th>
-                              <th>Unit Cost</th>
-                              <th>Quantity</th>
-                              <th>Cost</th>
-                          </tr>
-                        </thead>
-                        <tfoot>
-                          <tr>
-                              <th colspan="2">&nbsp;</th>
-                              <th>Vat</th>
-                              <th>{{'R' + vat}}</th>
-                              <th>Total Cost</th>
-                              <th>{{'R' + totalCost}}</th>
-                          </tr>
-                        </tfoot>
-                        <tbody>
-                          <tr v-for="(item, index) in spItems" :key="index">
-                            <td>{{index + 1}} &nbsp; <p v-on:click="removeSPItem(item)">x</p></td>
-                            <td>{{item.code}}</td>
-                            <td>{{item.description}}</td>
-                            <td>{{item.unitCost}}</td>
-                            <td>{{item.quantity}}</td>
-                            <td>{{item.totalCost}}</td>
-                          </tr>
-                          <tr>
-                              <th>#</th>
-                              <th><input type="text" class="form-control bg-light border-1" placeholder="Name" v-model="newItem.code"/></th>
-                              <th><input type="text" class="form-control bg-light border-1" placeholder="Description" v-model="newItem.description"/></th>
-                              <th><input type="number" class="form-control bg-light border-1" placeholder="Unit Cost" v-model.number="newItem.unitCost"/></th>
-                              <th><input type="number" class="form-control bg-light border-1" placeholder="Quantity" v-model.number="newItem.quantity"/></th>
-                              <th><input type="button" class="btn btn-primary btn-sm" value="Add" v-on:click="addSPItem" /></th>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+              <ul>
+                <li v-for="(item, index) in messages" :key="index">
+                  <p v-bind:style="{color: item.colour}">{{item.message}}</p>
+                </li>
+              </ul>
+              <p class="mb-3">Name</p>
+              <input type="text" class="form-control bg-light border-1 small mb-3" placeholder="Customer Name" v-model="name"  />
+              <p class="mb-3" >Car</p>
+              <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Car" v-model="car"  />
+              <p class="mb-3" >Registration Number</p>
+              <input type="text" class="form-control bg-light border-1 mb-3" placeholder="Registration Number" v-model="regNum"  />
+              <p class="mb-3" >Job Description</p>
+              <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="description" ></textarea>
+              <p class="mb-3" >Job Notes</p>
+              <textarea class="form-control bg-light border-1 mb-3" cols="100" rows="8" v-model="note" ></textarea>
+              <p class="mb-3" >Service and Product Items</p>
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Unit Cost</th>
+                            <th>Quantity</th>
+                            <th>Cost</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                            <th colspan="2">&nbsp;</th>
+                            <th>Vat</th>
+                            <th>{{'R' + vat}}</th>
+                            <th>Total Cost</th>
+                            <th>{{'R' + totalCost}}</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr v-for="(item, index) in spItems" :key="index">
+                          <td>{{index + 1}} &nbsp; <p v-on:click="removeSPItem(item)">x</p></td>
+                          <td>{{item.code}}</td>
+                          <td>{{item.description}}</td>
+                          <td>{{item.unitCost}}</td>
+                          <td>{{item.quantity}}</td>
+                          <td>{{item.totalCost}}</td>
+                        </tr>
+                        <tr>
+                            <th>#</th>
+                            <th><input type="text" class="form-control bg-light border-1" placeholder="Name" v-model="newItem.code"/></th>
+                            <th><input type="text" class="form-control bg-light border-1" placeholder="Description" v-model="newItem.description"/></th>
+                            <th><input type="number" class="form-control bg-light border-1" placeholder="Unit Cost" v-model.number="newItem.unitCost"/></th>
+                            <th><input type="number" class="form-control bg-light border-1" placeholder="Quantity" v-model.number="newItem.quantity"/></th>
+                            <th><input type="button" class="btn btn-primary btn-sm" value="Add" v-on:click="addSPItem" /></th>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-                <p class="mb-3">Date Delivered</p>
-                <input type="date" v-model="date" class="form-control bg-light border-1 mb-3" placeholder="Date Vehicle Delivered" />
-                <div>
-                  <input type="button" class="btn btn-primary btn-sm" value="Save" v-on:click="save" />
-                  <input type="button" class="btn btn-primary btn-sm" value="Invoice" v-on:click="invoice" />
-                </div>
+              </div>
+              <p class="mb-3">Date Delivered</p>
+              <input type="date" v-model="date" class="form-control bg-light border-1 mb-3" placeholder="Date Vehicle Delivered" />
+              <div>
+                <input type="button" class="btn btn-primary btn-sm" value="Save" v-on:click="save" />
+                <input type="button" class="btn btn-primary btn-sm" value="Invoice" v-on:click="invoice" />
+              </div>
             </div>
             </form>
         </div>
@@ -126,6 +131,7 @@
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/uuidv4.min.js"></script>
   <script src="js/common.js"></script>
+  <script src="js/validation.js"></script>
   <script src="js/frontScript/job.js"></script>
 </body>
 </html>
